@@ -1,4 +1,6 @@
-#[derive(Queryable)]
+use serde::{Serialize};
+
+#[derive(Queryable, Serialize)]
 pub struct Property {
     pub id: i32,
     pub general_location: String,

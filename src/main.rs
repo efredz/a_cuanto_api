@@ -10,11 +10,13 @@ mod repository;
 mod local_model;
 mod schema;
 
-use repository::*;
+use rocket_contrib::json::Json;
+use crate::local_model::property::Property;
 
 #[get("/")]
-fn index() -> &'static str {
-    "Hello, world!"
+fn index() -> Json<Vec<Property>> {
+    let properties = repository::property_repository::get_all_properties();
+    return Json(properties);
 }
 
 fn main() {

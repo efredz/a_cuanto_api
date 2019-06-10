@@ -2,7 +2,6 @@ use diesel::prelude::*;
 use diesel::pg::PgConnection;
 use dotenv::dotenv;
 use std::env;
-use crate::local_model::property;
 use crate::local_model::property::Property;
 use crate::schema;
 
@@ -15,11 +14,14 @@ pub fn establish_connection() -> PgConnection {
         .expect(&format!("Error connecting to {}", database_url))
 }
 
-pub fn get_all_properties() {
+pub fn get_all_properties() -> Vec<Property>{
     use schema::property::dsl::*;
 
     let connection = establish_connection();
 
     let properties = property.load::<Property>(&connection)
         .expect("Error loading properties");
+
+
+    return properties;
 }
